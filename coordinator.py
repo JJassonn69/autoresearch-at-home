@@ -401,7 +401,7 @@ class Coordinator:
                 "description": description,
                 "experiment_key": exp_key,
                 "claimed_at": _now_iso(),
-                "expected_duration_seconds": "variable (FLOP-budget based)",
+                "expected_duration_seconds": CLAIM_TTL,  # varies by hardware (FLOP-budget based)
                 "status": "claimed",
             }
             value_b64 = base64.b64encode(json.dumps(claim_data).encode()).decode()
