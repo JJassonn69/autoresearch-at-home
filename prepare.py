@@ -28,7 +28,17 @@ import torch
 # ---------------------------------------------------------------------------
 
 MAX_SEQ_LEN = 2048       # context length
-TIME_BUDGET = 300        # training time budget in seconds (5 minutes)
+
+# Training compute budget: calibrated for ~5 min wall-clock on H100 SXM5.
+# H100 BF16 peak = 989.5 TFLOPS; typical MFU ≈ 30% for models at this scale.
+# Budget = 989.5e12 * 0.30 * 300s ≈ 8.9e16 model-FLOPs.
+# All GPUs perform the same total FLOPs regardless of speed.
+# Slower GPUs take longer; faster GPUs finish sooner.
+_H100_BF16_PEAK = 989.5e12  # H100 SXM5 BF16 peak FLOPS (reference GPU)
+_BENCHMARK_SECS = 300       # 5-minute target on H100
+_REFERENCE_MFU  = 0.30      # estimated MFU for this model scale on H100
+FLOP_BUDGET = _H100_BF16_PEAK * _REFERENCE_MFU * _BENCHMARK_SECS
+
 EVAL_TOKENS = 40 * 524288  # number of tokens for val eval
 
 # ---------------------------------------------------------------------------

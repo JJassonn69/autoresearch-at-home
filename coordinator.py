@@ -34,7 +34,7 @@ HUB_ORG = "autoresearch-at-home"
 API_URL = "https://api.ensue-network.ai/"
 KEY_FILE = ".autoresearch-key"
 
-CLAIM_TTL = 900              # 15 min soft expiry (3x expected 5-min experiment)
+CLAIM_TTL = 900              # 15 min soft expiry
 VERIFY_DELAY = 2             # seconds between claim and verify
 SEMANTIC_THRESHOLD = 0.92    # block if active claim is this similar
 MAX_CLAIM_ATTEMPTS = 5       # alternatives before giving up
@@ -401,7 +401,7 @@ class Coordinator:
                 "description": description,
                 "experiment_key": exp_key,
                 "claimed_at": _now_iso(),
-                "expected_duration_seconds": 300,
+                "expected_duration_seconds": 300,  # H100 baseline; slower GPUs take longer
                 "status": "claimed",
             }
             value_b64 = base64.b64encode(json.dumps(claim_data).encode()).decode()
