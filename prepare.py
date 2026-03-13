@@ -28,7 +28,9 @@ import torch
 # ---------------------------------------------------------------------------
 
 MAX_SEQ_LEN = 2048       # context length
-TIME_BUDGET = 300        # training time budget in seconds (5 minutes)
+FLOP_BUDGET = 1e17       # total training compute budget in FLOPs (100 PetaFLOPs)
+                         # All GPUs perform the same total FLOPs regardless of speed.
+                         # Slower GPUs take longer; faster GPUs finish sooner.
 EVAL_TOKENS = 40 * 524288  # number of tokens for val eval
 
 # ---------------------------------------------------------------------------
