@@ -31,6 +31,13 @@ MAX_SEQ_LEN = 2048       # context length
 TIME_BUDGET = 300        # training time budget in seconds (5 minutes)
 EVAL_TOKENS = 40 * 524288  # number of tokens for val eval
 
+# FLOP budget — derived from H100 5-minute baseline so every GPU does the
+# same amount of compute regardless of wall-clock time.
+_H100_BF16_PEAK = 989.5e12   # H100 SXM bf16 peak FLOP/s
+_REFERENCE_MFU  = 0.30       # typical MFU observed during training
+_BENCHMARK_SECS = 300        # reference wall-clock time (5 minutes)
+FLOP_BUDGET = _H100_BF16_PEAK * _REFERENCE_MFU * _BENCHMARK_SECS  # ≈ 8.9e16
+
 # ---------------------------------------------------------------------------
 # Configuration
 # ---------------------------------------------------------------------------
