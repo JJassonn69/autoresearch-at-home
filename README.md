@@ -70,7 +70,7 @@ See `collab.md` for the full protocol. The short version:
 
 1. **THINK** — before picking an experiment, pull the global best and check what others have tried
 2. **CLAIM** — claim the experiment to avoid duplicate work (semantic dedup, auto-expiry)
-3. **RUN** — same as solo mode: edit `train.py`, train for 5 minutes, check val_bpb
+3. **RUN** — same as solo mode: edit `train.py`, train until the FLOP budget is exhausted, check val_bpb
 4. **PUBLISH** — publish the result (including full source) so others can learn from it
 
 All shared state lives under `@autoresearch-at-home/` in Ensue:
